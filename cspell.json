@@ -1,0 +1,22 @@
+{
+    "version": "0.2",
+    "language": "en",
+    "ignorePaths": [
+        "**/pubspec.lock",
+        ".git/**",
+        ".idea/**",
+        ".vscode/**",
+        ".fvm/**",
+        "**/build/**",
+        ".dart_tool/**",
+        "**/*.gen.dart",
+        "**/*.g.dart",
+        "**/*.freezed.dart"
+    ],
+    "words": [
+        "interps",
+        "pubspec",
+        "riverpod",
+        "unawaited"
+    ]
+}
