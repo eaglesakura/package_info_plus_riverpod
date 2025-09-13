@@ -1,41 +1,44 @@
-`package_info_plus` を Riverpod から使用するためのプロバイダーを提供するパッケージです。アプリケーションの基本情報（アプリ名、パッケージ名、バージョン等）を同期的に Riverpod 経由で取得することが可能です。
+A package that provides providers for using `package_info_plus` with Riverpod. This package enables synchronous access to basic application information (app name, package name, version, etc.) through Riverpod.
 
 ## Features
 
-- アプリケーションの基本情報を Riverpod の Provider として提供
-- アプリ名、パッケージ名、バージョン、ビルド番号、ビルド署名、インストーラーストア情報へのアクセス
-- 非同期初期化による依存注入サポート
-- 既存の `PackageInfo` オブジェクトからの Provider 生成
+- Provides basic application information as Riverpod Providers
+- Access to app name, package name, version, build number, build signature, and installer store information
+- Access to application installation time and update time
+- Dependency injection support through asynchronous initialization
+- Provider generation from existing `PackageInfo` objects
 
 ## Getting started
 
-このパッケージは内部依存です。使用するには、対象パッケージの `pubspec.yaml` に以下の依存関係を追加してください：
+This is an internal dependency package. To use it, add the following dependency to your target package's `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  package_info_plus_riverpod: ^1.0.0
+  package_info_plus_riverpod: ^1.1.0
 ```
 
 ## Usage
 
-以下のようにしてアプリケーション情報を取得できます：
+You can retrieve application information as follows:
 
 ```dart
-// 非同期で依存を解決
+// Resolve dependencies asynchronously
 final overrides = await PackageInfoPlusProviders.inject();
 
-// ProviderScope で Override を適用
+// Apply overrides with ProviderScope
 ProviderScope(
   overrides: overrides,
   child: MyApp(),
 )
 
-// Consumer で各プロパティを使用
+// Use each property with Consumer
 Consumer(
   builder: (context, ref, child) {
     final appName = ref.watch(PackageInfoPlusProviders.appName);
     final version = ref.watch(PackageInfoPlusProviders.version);
     final packageName = ref.watch(PackageInfoPlusProviders.packageName);
+    final installTime = ref.watch(PackageInfoPlusProviders.installTime);
+    final updateTime = ref.watch(PackageInfoPlusProviders.updateTime);
 
     return Text('$appName v$version ($packageName)');
   },
@@ -44,13 +47,15 @@ Consumer(
 
 ## Additional information
 
-このパッケージは `flutter_armyknife` プロジェクトの一部として開発されており、Flutter アプリケーションでの Riverpod を使用した状態管理を支援します。
+This package is developed as part of the `flutter_armyknife` project and supports state management using Riverpod in Flutter applications.
 
-利用可能な Provider：
+Available Providers:
 
-- `appName`: アプリケーション名
-- `packageName`: パッケージ名
-- `version`: バージョン
-- `buildNumber`: ビルド番号
-- `buildSignature`: ビルド署名
-- `installerStore`: インストーラーストア情報
+- `appName`: Application name
+- `packageName`: Package name
+- `version`: Version
+- `buildNumber`: Build number
+- `buildSignature`: Build signature
+- `installerStore`: Installer store information
+- `installTime`: Application installation time
+- `updateTime`: Application last update time
