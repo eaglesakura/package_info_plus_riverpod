@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:riverpod/misc.dart';
 
 /// [PackageInfo] を同期的にRiverpod経由で取得する.
 ///
