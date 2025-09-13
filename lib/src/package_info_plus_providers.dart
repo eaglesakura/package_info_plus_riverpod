@@ -68,6 +68,31 @@ final class PackageInfoPlusProviders {
     (ref) => throw UnimplementedError(),
   );
 
+  /// The time when the application was installed.
+  ///
+  /// - On Android, returns `PackageManager.firstInstallTime`
+  /// - On iOS, return the creation date of the app default `NSDocumentDirectory`
+  /// - On macOS, if the app is running in sandbox, return the creation date of the app default `NSDocumentDirectory`;
+  ///   If the app is not running in sandbox, return the last modified date of the app main bundle
+  /// - On Windows and Linux, returns the creation date of the app executable.
+  ///   If the creation date is not available, returns the last modified date of the app executable.
+  ///   If the last modified date is not available, returns `null`.
+  /// - On web, returns `null`.
+  static final installTime = Provider<DateTime?>(
+    (ref) => throw UnimplementedError(),
+  );
+
+  /// The time when the application was last updated.
+  ///
+  /// - On Android, returns `PackageManager.lastUpdateTime`
+  /// - On iOS and macOS, return the last modified date of the app main bundle
+  /// - On Windows and Linux, returns the last modified date of the app executable.
+  ///   If the last modified date is not available, returns `null`.
+  /// - On web, returns `null`.
+  static final updateTime = Provider<DateTime?>(
+    (ref) => throw UnimplementedError(),
+  );
+
   const PackageInfoPlusProviders._();
 
   /// 依存を解決して [PackageInfo] を取得する.
@@ -85,6 +110,8 @@ final class PackageInfoPlusProviders {
       buildNumber.overrideWithValue(info.buildNumber),
       buildSignature.overrideWithValue(info.buildSignature),
       installerStore.overrideWithValue(info.installerStore),
+      installTime.overrideWithValue(info.installTime),
+      updateTime.overrideWithValue(info.updateTime),
     ];
   }
 }
